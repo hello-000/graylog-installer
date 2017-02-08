@@ -13,11 +13,17 @@
 # please refer to the official documentation:
 #   http://docs.graylog.org/en/2.1/pages/installation/os/ubuntu.html
 #
+# Please be aware, that this script is written for Ubuntu 16.04
+# should it be installed on an Ubuntu 14.04, there are certain
+# changes that need to be made, before running the script, as there
+# is no native support for java-8.
 """
 
 import subprocess
 import sys
 import hashlib
+
+from printing import pcolors
 
 def log(severity, msg):
     print "[*][" + severity + "] - " + msg
