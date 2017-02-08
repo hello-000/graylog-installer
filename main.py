@@ -17,6 +17,7 @@
 
 import subprocess
 import sys
+import hashlib
 
 def log(severity, msg):
     print "[*][" + severity + "] - " + msg
@@ -64,9 +65,23 @@ def openjdk_install():
     sys.stdout.write('Use defaults?: ')
     defaults = raw_input()
 
+
+
     if defaults != '' and defaults[0] != 'y':
         sys.stdout.write('Java Package Name: ')
         javaPackage = raw_input()
+
+    try:
+        d = subprocess.check_call(["apt-get", "update", "&&", "apt-get", "upgrade"])
+        log("INFO", "updated and upgraded apt-get")
+    except subprocess.CalledProcessError:
+        log('ERROR', "Cannot update / upgrade apt-get")
+
+    try:
+        d = subprocess.check_call(["apt-get", "install", "apt-transport-https", "openjdk-8-jre-headless", "uuid-runtime", "pwgen"])
+        log("INFO", "apt-transport, openjdk, uuid-runtime and pwgen dependencies installed")
+    except subprocess.CalledProcessError:
+        log('ERROR', "Cannot install apt-transport, openjdk, uuid-runtime and pwgen dependencies")
 
     try:
         d = subprocess.check_call(["apt-get", "install", javaPackage])
@@ -80,12 +95,66 @@ def mongodb_install():
 
     try:
         d = subprocess.check_call(["apt-get", "install", mongoPackage])
-        print "mongodb-server installed"
+        log("INFO", "mongodb-server installed")
     except:
         log("ERROR", "Cannot install MongoDB")
 
 def graylog_install():
     print "OK"
+    try:
+        d = subprocess.check_call(["wget", "https://packages.graylog2.org/repo/packages/graylog-2.1-repository_latest.deb"])
+        log("INFO", "retrieved graylog-2.1-repository_latest.deb from repository")
+    except subprocess.CalledProcessError:
+        log('ERROR', "Cannot retrieve graylog-2.1-repository_latest.deb from repository")
+
+    try:
+        d = subprocess.check_call(["dpkg", "-i", "graylog-2.1-repository_latest.deb"])
+        log("INFO", "depackaged graylog-2.1-repository_latest.deb")
+    except subprocess.CalledProcessError:
+        log('ERROR', "Cannot depackage graylog-2.1-repository_latest.deb")
+
+    try:
+        d = subprocess.check_call(["apt-get", "update", "&&", "apt-get", "install", "graylog-server"])
+        log("INFO", "graylog-server installed")
+    except subprocess.CalledProcessError:
+        log('ERROR', "Cannot install graylog-server")
+
+
+
+def graylog_configuration():
+
+    configuration = None
+
+    try:
+        with open('server.conf') as file:
+            configuration = file.readlines()
+        log("INFO", "reading /etc/graylog/server/server.conf")
+    except subprocess.CalledProcessError:
+        log('ERROR', "Failed reading /etc/graylog/server/server.conf")
+
+    sys.stdout.write('admin password: ')
+    password = raw_input()
+
+    try:
+
+        pwd_hash = hashlib.sha256(password)
+
+        for index, line in enumerate(configuration):
+            if line.find("root_password_sha2 =") != -1:
+                configuration[index] = "root_password_sha2 = " + pwd_hash.hexdigest()
+
+        file = open('server.conf', 'w')
+        file.truncate()
+        file.writelines("".join(configuration))
+    except subprocess.CalledProcessError:
+        log('ERROR', "changing admin password failed.")
+
+    try:
+        d = subprocess.Popen(["pwgen", "-s", "96", "1"], stdout=subprocess.PIPE)
+        out, err = d.communicate()
+        print out
+    except subprocess.CalledProcessError:
+        log('ERROR', "Creating password pepper failed.")
 
 def main():
 
@@ -103,5 +172,6 @@ def main():
     # graylog_install()
 
     # make configuration changes
+    graylog_configuration()
 
 main()
