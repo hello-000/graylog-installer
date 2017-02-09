@@ -19,17 +19,11 @@
 # is no native support for java-8.
 """
 
-import subprocess
-import sys
 import hashlib
 
-from printing import pcolors
+from logging import *
+from openjdk_installer import  *
 
-def log(severity, msg):
-    print "[*][" + severity + "] - " + msg
-    if severity == 'ERROR':
-        "[*][" + severity + "] - " + "Exiting script execution"
-        sys.exit(1)
 
 # Deprecated until further notice, fuck this ipconfig stuff.
 def configure_host():
@@ -64,38 +58,6 @@ def configure_host():
         log("ERROR", "Cannot change hostname")
 
 
-def openjdk_install():
-
-    javaPackage = 'openjdk-8-jre'
-
-    sys.stdout.write('Use defaults?: ')
-    defaults = raw_input()
-
-
-
-    if defaults != '' and defaults[0] != 'y':
-        sys.stdout.write('Java Package Name: ')
-        javaPackage = raw_input()
-
-    try:
-        d = subprocess.check_call(["apt-get", "update", "&&", "apt-get", "upgrade"])
-        log("INFO", "updated and upgraded apt-get")
-    except subprocess.CalledProcessError:
-        log('ERROR', "Cannot update / upgrade apt-get")
-
-    try:
-        d = subprocess.check_call(["apt-get", "install", "apt-transport-https", "openjdk-8-jre-headless", "uuid-runtime", "pwgen"])
-        log("INFO", "apt-transport, openjdk, uuid-runtime and pwgen dependencies installed")
-    except subprocess.CalledProcessError:
-        log('ERROR', "Cannot install apt-transport, openjdk, uuid-runtime and pwgen dependencies")
-
-    try:
-        d = subprocess.check_call(["apt-get", "install", javaPackage])
-        print "java 8 installed"
-    except subprocess.CalledProcessError:
-        log('ERROR', "Cannot install Java")
-
-
 def mongodb_install():
     mongoPackage = 'mongodb-server'
 
@@ -104,6 +66,7 @@ def mongodb_install():
         log("INFO", "mongodb-server installed")
     except:
         log("ERROR", "Cannot install MongoDB")
+
 
 def graylog_install():
     print "OK"
@@ -126,33 +89,31 @@ def graylog_install():
         log('ERROR', "Cannot install graylog-server")
 
 
-
 def graylog_configuration():
 
     configuration = None
 
     try:
-        with open('server.conf') as file:
-            configuration = file.readlines()
+        with open('server.conf') as conf_file:
+            configuration = conf_file.readlines()
         log("INFO", "reading /etc/graylog/server/server.conf")
-    except subprocess.CalledProcessError:
+    except:
         log('ERROR', "Failed reading /etc/graylog/server/server.conf")
 
     sys.stdout.write('admin password: ')
     password = raw_input()
 
     try:
-
         pwd_hash = hashlib.sha256(password)
 
         for index, line in enumerate(configuration):
             if line.find("root_password_sha2 =") != -1:
                 configuration[index] = "root_password_sha2 = " + pwd_hash.hexdigest()
 
-        file = open('server.conf', 'w')
-        file.truncate()
-        file.writelines("".join(configuration))
-    except subprocess.CalledProcessError:
+        conf_file = open('server.conf', 'w')
+        conf_file.truncate()
+        conf_file.writelines("".join(configuration))
+    except:
         log('ERROR', "changing admin password failed.")
 
     try:
@@ -161,6 +122,7 @@ def graylog_configuration():
         print out
     except subprocess.CalledProcessError:
         log('ERROR', "Creating password pepper failed.")
+
 
 def main():
 
