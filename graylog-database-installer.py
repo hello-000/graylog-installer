@@ -27,26 +27,51 @@ def graylog_database_install():
 
 
 def database_configuration():
+    config_location = '/etc/elasticsearch/elasticsearch.yml'
     configuration = None
 
     try:
-        with open('server.conf') as conf_file:
+        with open(config_location) as conf_file:
             configuration = conf_file.readlines()
-        log("INFO", "reading /etc/graylog/server/server.conf")
+        log("INFO", "reading " + config_location)
     except:
-        log('ERROR', "Failed reading /etc/graylog/server/server.conf")
+        log('ERROR', "Failed reading " + config_location)
+
+    sys.stdout.write("ip-address (elasticsearch server): ")
+    network_host = raw_input()
+
+    for index, line in enumerate(configuration):
+        if line.find("cluster.name: ") != -1:
+            configuration[index] = "cluster.name: graylog"
+            log("INFO", "cluster.name changed to graylog")
+        if line.find("network.host") != -1:
+            configuration[index] = "network.host: " + network_host
+            log("INFO", "network.host changed to " + network_host)
+        if line.find("transport.tcp.port: ") != -1:
+            configuration[index] = "transport.tcp.port: 9300"
+            log("INFO", "transport.tcp.port changed to 9300")
+        if line.find("http.port: ") != -1:
+            configuration[index] = "http.port: 9200"
+            log("INFO", "http.port changed to 9200")
+
+    conf_file = open(config_location, 'w')
+    conf_file.truncate()
+    conf_file.writelines("".join(configuration))
 
     print "OK"
 
 
-def main():
-    # install dependencies Java, pwgen etc.
-    openjdk_install()
+def main(args):
+    if (args[1] == "--config"):
+        database_configuration()
+    else:
+        # install dependencies Java, pwgen etc.
+        openjdk_install()
 
-    # install the elasticsearch database
-    graylog_database_install()
+        # install the elasticsearch database
+        graylog_database_install()
 
-    # make configuration change to the database config
-    # database_configuration()
+        # make configuration change to the database config
+        database_configuration()
 
-main()
+main(sys.argv)
