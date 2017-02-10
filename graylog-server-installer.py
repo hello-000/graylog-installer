@@ -92,14 +92,15 @@ def graylog_install():
 
 def graylog_configuration():
 
+    config_location = "/etc/graylog/server/server.conf"
     configuration = None
 
     try:
         with open('server.conf') as conf_file:
             configuration = conf_file.readlines()
-        log("INFO", "reading /etc/graylog/server/server.conf")
+        log("INFO", "reading " + config_location)
     except:
-        log('ERROR', "Failed reading /etc/graylog/server/server.conf")
+        log('ERROR', "Failed reading " + config_location)
 
     sys.stdout.write('admin password: ')
     password = raw_input()
@@ -111,7 +112,7 @@ def graylog_configuration():
             if line.find("root_password_sha2 =") != -1:
                 configuration[index] = "root_password_sha2 = " + pwd_hash.hexdigest()
 
-        conf_file = open('server.conf', 'w')
+        conf_file = open(config_location, 'w')
         conf_file.truncate()
         conf_file.writelines("".join(configuration))
     except:
@@ -132,13 +133,13 @@ def main():
     # configure_host()
 
     # install openjdk-x-jre-
-    # openjdk_install()
+    openjdk_install()
 
     # install mongodb-server
-    # mongodb_install()
+    mongodb_install()
 
     # install graylog-server
-    # graylog_install()
+    graylog_install()
 
     # make configuration changes
     graylog_configuration()

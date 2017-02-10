@@ -1,4 +1,7 @@
 
+import signal
+import os
+
 from logging import *
 from openjdk_installer import *
 
@@ -29,6 +32,8 @@ def graylog_database_install():
 def database_configuration():
     config_location = '/etc/elasticsearch/elasticsearch.yml'
     configuration = None
+    pidfile = None
+    pid = None
 
     try:
         with open(config_location) as conf_file:
@@ -58,12 +63,33 @@ def database_configuration():
     conf_file.truncate()
     conf_file.writelines("".join(configuration))
 
-    print "OK"
+    elasticsearch_dir = "/usr/share/elasticsearch/bin/"
+
+    try:
+        pidfile = open(elasticsearch_dir + "pidfile", "rw")
+        pid = pidfile.readlines()
+
+        if pid[0] != '':
+            os.kill(int(pid[0]), signal.SIGTERM)
+            try:
+                os.kill(int(pid[0]), 0)
+                log("ERROR", "Cannot kill elasticsearch proccess (pid " + pid[0] + ")")
+            except:
+                log("INFO", "Elasticsearch processed successfully stopped")
+    except IOError:
+        log("WARNING", "Cannot find pidfile - assuming elasticsearch is not running")
+
+    if subprocess.check_call([elasticsearch_dir + "elasticsearch", "-d", "-p", elasticsearch_dir + "pidfile"]) != 0:
+        log("ERROR", "Cannot start the elasticsearch database")
+
+    log("INFO", "Elasticsearch database successfully started")
 
 
 def main(args):
-    if (args[1] == "--config"):
-        database_configuration()
+
+    if len(args) > 1:
+        if args[1] == "--config":
+            database_configuration()
     else:
         # install dependencies Java, pwgen etc.
         openjdk_install()
@@ -73,5 +99,6 @@ def main(args):
 
         # make configuration change to the database config
         database_configuration()
+
 
 main(sys.argv)
