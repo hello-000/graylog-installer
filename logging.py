@@ -15,7 +15,7 @@ class pcolors:
 def log(severity, msg):
 
     if severity == 'ERROR':
-        cprint(pcolors.FAIL, "[*][" + severity + "] - " + msg + "Exiting script execution")
+        cprint(pcolors.FAIL, "[*][" + severity + "] - " + msg + " Exiting script execution")
         sys.exit(1)
 
     if severity == 'INFO':

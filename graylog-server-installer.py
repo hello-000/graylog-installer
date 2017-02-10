@@ -83,7 +83,8 @@ def graylog_install():
         log('ERROR', "Cannot depackage graylog-2.1-repository_latest.deb")
 
     try:
-        d = subprocess.check_call(["apt-get", "update", "&&", "apt-get", "install", "graylog-server"])
+        d = subprocess.check_call(["apt-get", "update"])
+        d = subprocess.check_call(["apt-get", "install", "graylog-server"])
         log("INFO", "graylog-server installed")
     except subprocess.CalledProcessError:
         log('ERROR', "Cannot install graylog-server")

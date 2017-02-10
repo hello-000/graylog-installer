@@ -14,7 +14,8 @@ def openjdk_install():
         javaPackage = raw_input()
 
     try:
-        d = subprocess.check_call(["apt-get", "update", "&&", "apt-get", "upgrade"])
+        d = subprocess.check_call(["apt-get", "update"])
+        d = subprocess.check_call(["apt-get", "upgrade"])
         log("INFO", "updated and upgraded apt-get")
     except subprocess.CalledProcessError:
         log('ERROR', "Cannot update / upgrade apt-get")
