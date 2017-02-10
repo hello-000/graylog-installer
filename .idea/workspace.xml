@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0f59be5-690b-4b7f-984c-a2123e8fa8a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graylog-database-installer.py" afterPath="$PROJECT_DIR$/graylog-database-installer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graylog-server-installer.py" afterPath="$PROJECT_DIR$/graylog-server-installer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logging.py" afterPath="$PROJECT_DIR$/logging.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/openjdk_installer.py" afterPath="$PROJECT_DIR$/openjdk_installer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,8 +30,8 @@
       <file leaf-file-name="graylog-database-installer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/graylog-database-installer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+            <state relative-caret-position="180">
+              <caret line="10" column="59" lean-forward="false" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
               <folding>
                 <element signature="e#1#22#0" expanded="true" />
               </folding>
@@ -103,8 +99,8 @@
         <option value="$PROJECT_DIR$/openjdk-installer.py" />
         <option value="$PROJECT_DIR$/logging.py" />
         <option value="$PROJECT_DIR$/openjdk_installer.py" />
-        <option value="$PROJECT_DIR$/graylog-database-installer.py" />
         <option value="$PROJECT_DIR$/graylog-server-installer.py" />
+        <option value="$PROJECT_DIR$/graylog-database-installer.py" />
       </list>
     </option>
   </component>
@@ -573,8 +569,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/graylog-database-installer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+        <state relative-caret-position="180">
+          <caret line="10" column="59" lean-forward="false" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
           <folding>
             <element signature="e#1#22#0" expanded="true" />
           </folding>

@@ -4,8 +4,11 @@ from openjdk_installer import *
 
 
 def graylog_database_install():
-    if subprocess.check_call(["wget", "-qO", "https://packages.elastic.co/GPG-KEY-elasticsearch", "|",  "sudo", "apt-key", "add", "-"]) != 0:
+    if subprocess.check_call(["wget", "-qO", "elastickey", "https://packages.elastic.co/GPG-KEY-elasticsearch"]) != 0:
         log("ERROR", "Cannot retrieve elasticsearch package key.")
+
+    if subprocess.check_call(["apt-key", "add", "elastickey"]) != 0:
+        log("ERROR", "Cannot add elastickey to trusted keys")
 
     log("INFO", "Retrieved elasticsearch package key successfully")
 
