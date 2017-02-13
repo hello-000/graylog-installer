@@ -23,6 +23,15 @@ import hashlib
 
 from logging import *
 from openjdk_installer import  *
+from elasticsearch_installer import *
+
+
+def isInteger(value):
+    try:
+        int(value)
+        return 0
+    except ValueError:
+        return 1
 
 
 # Deprecated until further notice, fuck this ipconfig stuff.
@@ -99,18 +108,65 @@ def graylog_configuration():
         with open('server.conf') as conf_file:
             configuration = conf_file.readlines()
         log("INFO", "reading " + config_location)
-    except:
+    except IOError:
         log('ERROR', "Failed reading " + config_location)
+
+    # sys.stdout.write('Enable Web Server? (y/n): ')
+    web_enable = "true"  # assumed yes
+
+    sys.stdout.write('Web Server IP: ')
+    web_ip = raw_input()
 
     sys.stdout.write('admin password: ')
     password = raw_input()
 
+    # sys.stdout.write('node is master? (y/n): ')
+    is_master = "true"  # assumed yes
+
+    pw_pepper = None
+
+    log_retention = None
+
+    while isInteger(log_retention) == 1:
+        sys.stdout.write('log retention (in days): ')
+        log_retention = raw_input()
+        if isInteger(log_retention) == 1:
+            log("WARNING", "Please try again, log retention must be given as a number.")
+
+    try:
+        d = subprocess.Popen(["pwgen", "-s", "96", "1"], stdout=subprocess.PIPE)
+        pw_pepper, err = d.communicate()
+    except subprocess.CalledProcessError:
+        log('ERROR', "Creating password pepper failed.")
+
     try:
         pwd_hash = hashlib.sha256(password)
+
+        web_enable_found = False
 
         for index, line in enumerate(configuration):
             if line.find("root_password_sha2 =") != -1:
                 configuration[index] = "root_password_sha2 = " + pwd_hash.hexdigest()
+            if line.find("password_secret = ") != -1:
+                configuration[index] = "password_secret = " + pw_pepper
+            if line.find("is_master = ") != -1:
+                configuration[index] = "is_master = " + is_master
+            if line.find("rest_listen_uri = ") != -1:
+                configuration[index] = "rest_listen_uri = http://" + web_ip + ":9000/api/"
+            if line.find("rest_transport_uri = ") != -1:
+                configuration[index] = "rest_transport_uri = http://" + web_ip + ":9000/api/"
+            if line.find("web_enable = ") != -1:
+                configuration[index] = "web_enable = " + web_enable
+                web_enable_found = True
+            if line.find("web_listen_uri = ") != -1:
+                configuration[index] = "web_listen_uri = http://" + web_ip + ":9000/"
+            if line.find("elasticsearch_max_time_per_index = "):
+                configuration[index] = "elasticsearch_max_time_per_index = 1d"
+            if line.find("elasticsearch_max_number_of_indices = "):
+                configuration[index] = "elasticsearch_max_number_of_indices = " + log_retention
+
+        if web_enable_found == False:
+            configuration.append("web_enable = " + web_enable)
 
         conf_file = open(config_location, 'w')
         conf_file.truncate()
@@ -118,12 +174,7 @@ def graylog_configuration():
     except:
         log('ERROR', "changing admin password failed.")
 
-    try:
-        d = subprocess.Popen(["pwgen", "-s", "96", "1"], stdout=subprocess.PIPE)
-        out, err = d.communicate()
-        print out
-    except subprocess.CalledProcessError:
-        log('ERROR', "Creating password pepper failed.")
+
 
 
 def main():
@@ -137,6 +188,9 @@ def main():
 
     # install mongodb-server
     mongodb_install()
+
+    # install elasticsearch
+    elasticsearch_install()
 
     # install graylog-server
     graylog_install()
