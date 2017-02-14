@@ -165,7 +165,7 @@ def graylog_configuration():
             if line.find("elasticsearch_max_number_of_indices = "):
                 configuration[index] = "elasticsearch_max_number_of_indices = " + log_retention
 
-        if web_enable_found == False:
+        if not web_enable_found:
             configuration.append("web_enable = " + web_enable)
 
         conf_file = open(config_location, 'w')
@@ -175,9 +175,7 @@ def graylog_configuration():
         log('ERROR', "changing admin password failed.")
 
 
-
-
-def main():
+if __name__ == '__main__':
 
     # change ip, dns, gateway and hostname settings
     # deprecated for now.
@@ -198,4 +196,5 @@ def main():
     # make configuration changes
     graylog_configuration()
 
-main()
+
+
