@@ -44,8 +44,8 @@ graylog-server-installer.
 
 ### graylog-server-installer
 
-#### Network Configuration, has been deprecated, this must be done manually.
-
+#### Network Configuration
+    o   Has been deprecated, this must be done manually.
 #### Java JDK
     o   Installed with defaults. This is running as intended.
 #### MongoDB
@@ -60,7 +60,7 @@ graylog-server-installer.
             x   node.data: false
             x   network.host: <elasticsearch-server-ip>
             x   discovery.zen.multicast.enabled: false
-            x   discovery.zen.ping.unicast.hosts: [<elasticsearch-server-ip>]
+            x   discovery.zen.ping.unicast.hosts: [<elasticsearch-server-ip>, localhost]
 #### Graylog
     o   Currently installing 2.1 (This needs to be changed to 2.2) all defaults (intended)
     o   Currently Configuring:
@@ -74,7 +74,26 @@ graylog-server-installer.
             v   elasticsearch_max_time_per_index (log retention)
             v   elasticsearch_max_number_of_indices (log retention)
 
+### graylog-database-installer
 
+Short note, that for debugging reasons, a cmd line parameter --config has been included
+in case that there is no need to install elasticsearch nor open-jdk, but the user is only interested
+in the configuration part of this script.
+
+#### Java JDK
+    o   Installed with defaults. This is running as intended.
+#### Elasticsearch
+    o   Using the same installer as Graylog
+    o   Currently Configuring:
+        v   cluster.name: graylog
+        v   network.host <local-ip>
+        v   transport.tcp.port: 9300 (default)
+        v   http.port: 9200 (default)
+    o   Configuration needs to be added:
+        x   node.master
+        x   node.data
+        x   discovery.zen.multicast.enabled: false
+        x   discovery.zen.ping.unicast.hosts: [<localip>, localhost]
 
 
 
