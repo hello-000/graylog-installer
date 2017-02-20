@@ -22,7 +22,7 @@
 import hashlib
 
 from logging import *
-from openjdk_installer import  *
+from openjdk_installer import *
 from elasticsearch_installer import *
 
 
@@ -105,7 +105,7 @@ def graylog_configuration():
     configuration = None
 
     try:
-        with open('server.conf') as conf_file:
+        with open(config_location) as conf_file:
             configuration = conf_file.readlines()
         log("INFO", "reading " + config_location)
     except IOError:
