@@ -71,7 +71,7 @@ def mongodb_install():
     mongoPackage = 'mongodb-server'
 
     try:
-        d = subprocess.check_call(["apt-get", "install", mongoPackage])
+        d = subprocess.check_call(["apt-get", "install", "-y", mongoPackage])
         log("INFO", "mongodb-server installed")
     except:
         log("ERROR", "Cannot install MongoDB")
@@ -92,8 +92,8 @@ def graylog_install():
         log('ERROR', "Cannot depackage graylog-2.1-repository_latest.deb")
 
     try:
-        d = subprocess.check_call(["apt-get", "update"])
-        d = subprocess.check_call(["apt-get", "install", "graylog-server"])
+        d = subprocess.check_call(["apt-get", "update", "-y"])
+        d = subprocess.check_call(["apt-get", "install", "-y", "graylog-server"])
         log("INFO", "graylog-server installed")
     except subprocess.CalledProcessError:
         log('ERROR', "Cannot install graylog-server")

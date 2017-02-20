@@ -61,6 +61,10 @@ graylog-server-installer.
             x   network.host: <elasticsearch-server-ip>
             x   discovery.zen.multicast.enabled: false
             x   discovery.zen.ping.unicast.hosts: [<elasticsearch-server-ip>, localhost]
+
+    o   Configuration needed to be added:
+            v   multi-node cluster configuration
+
 #### Graylog
     o   Currently installing 2.1 (This needs to be changed to 2.2) all defaults (intended)
     o   Currently Configuring:
@@ -73,6 +77,9 @@ graylog-server-installer.
             v   web_listen_uri (web ip)
             v   elasticsearch_max_time_per_index (log retention)
             v   elasticsearch_max_number_of_indices (log retention)
+
+    o   Configuration needed to be added:
+            v   multi-node cluster configuration
 
 ### graylog-database-installer
 
@@ -89,13 +96,13 @@ in the configuration part of this script.
         v   network.host <local-ip>
         v   transport.tcp.port: 9300 (default)
         v   http.port: 9200 (default)
-    o   Configuration needs to be added:
-        x   node.master
-        x   node.data
-        x   discovery.zen.multicast.enabled: false
-        x   discovery.zen.ping.unicast.hosts: [<localip>, localhost]
+        v   node.master
+        v   node.data
+        v   discovery.zen.multicast.enabled: false
+        v   discovery.zen.ping.unicast.hosts: [<localip>, localhost]
 
-
+    o   Configuration needed to be added:
+            v   multi-node cluster configuration
 
 
 

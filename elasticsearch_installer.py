@@ -16,10 +16,10 @@ def elasticsearch_install():
 
     log("INFO", "Added elasticsearch package to /etc/apt/source.list.d/ successfully")
 
-    if subprocess.check_call(["apt-get", "update"]) != 0:
+    if subprocess.check_call(["apt-get", "update", "-y"]) != 0:
         log("ERROR", "Cannot install update apt-get.")
 
-    if subprocess.check_call(["apt-get", "install", "elasticsearch"]) != 0:
+    if subprocess.check_call(["apt-get", "install", "-y", "elasticsearch"]) != 0:
         log("ERROR"" Cannot installed elasticsearch")
 
     log("INFO", "Installed elasticsearch successfully.")
