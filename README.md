@@ -55,12 +55,15 @@ graylog-server-installer.
     o   No other current tasks on this section.
 #### Elasticsearch
     o   Currently installing with defauls.
-    o   Configuration needs to be added, changing the following points:
-            x   node.master: false
-            x   node.data: false
-            x   network.host: <elasticsearch-server-ip>
-            x   discovery.zen.multicast.enabled: false
-            x   discovery.zen.ping.unicast.hosts: [<elasticsearch-server-ip>, localhost]
+    o   Configuration made to the elasticsearch database is identical to the graylog-database-installer configuration
+            v   cluster.name: graylog
+            v   network.host <local-ip>
+            v   transport.tcp.port: 9300 (default)
+            v   http.port: 9200 (default)
+            v   node.master
+            v   node.data
+            v   discovery.zen.multicast.enabled: false
+            v   discovery.zen.ping.unicast.hosts: [<localip>, localhost]
 
     o   Configuration needed to be added:
             v   multi-node cluster configuration

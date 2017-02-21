@@ -24,6 +24,7 @@ import hashlib
 from logging import *
 from openjdk_installer import *
 from elasticsearch_installer import *
+from elasticsearch_configuration import *
 
 
 def isInteger(value):
@@ -171,12 +172,15 @@ def graylog_configuration():
         conf_file = open(config_location, 'w')
         conf_file.truncate()
         conf_file.writelines("".join(configuration))
-    except:
+    except TypeError:
+        log('ERROR', "Expected string input, cannot parse input for config file.")
+    except NameError:
+        log('ERROR', "Password for hashlib input not defined.")
+    except IOError:
         log('ERROR', "changing admin password failed.")
 
 
 if __name__ == '__main__':
-
     # change ip, dns, gateway and hostname settings
     # deprecated for now.
     # configure_host()
@@ -189,6 +193,9 @@ if __name__ == '__main__':
 
     # install elasticsearch
     elasticsearch_install()
+
+    # make configuration changes to elasticsearch database
+    elasticsearch_configuration()
 
     # install graylog-server
     graylog_install()
