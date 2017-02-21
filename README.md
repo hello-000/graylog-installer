@@ -66,7 +66,8 @@ graylog-server-installer.
             v   discovery.zen.ping.unicast.hosts: [<localip>, localhost]
 
     o   Configuration needed to be added:
-            v   multi-node cluster configuration
+            x   Need to add a user input for log retention
+            x   multi-node cluster configuration
 
 #### Graylog
     o   Currently installing 2.1 (This needs to be changed to 2.2) all defaults (intended)
@@ -82,7 +83,8 @@ graylog-server-installer.
             v   elasticsearch_max_number_of_indices (log retention)
 
     o   Configuration needed to be added:
-            v   multi-node cluster configuration
+            x   Need to add a user input for log retention
+            x   multi-node cluster configuration
 
 ### graylog-database-installer
 

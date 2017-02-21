@@ -33,6 +33,8 @@ def isInteger(value):
         return 0
     except ValueError:
         return 1
+    except TypeError:
+        return 1
 
 
 # Deprecated until further notice, fuck this ipconfig stuff.
@@ -127,6 +129,14 @@ def graylog_configuration():
     pw_pepper = None
 
     log_retention = None
+    c_root_password = False
+    c_password_secret = False
+    c_is_master = False
+    c_rest_listen = False
+    c_rest_transport = False
+    c_web_listen = False
+    c_elastic_max_index = False
+    c_elastic_max_time = False
 
     while isInteger(log_retention) == 1:
         sys.stdout.write('log retention (in days): ')
@@ -146,62 +156,100 @@ def graylog_configuration():
         web_enable_found = False
 
         for index, line in enumerate(configuration):
-            if line.find("root_password_sha2 =") != -1:
-                configuration[index] = "root_password_sha2 = " + pwd_hash.hexdigest()
-            if line.find("password_secret = ") != -1:
-                configuration[index] = "password_secret = " + pw_pepper
-            if line.find("is_master = ") != -1:
-                configuration[index] = "is_master = " + is_master
-            if line.find("rest_listen_uri = ") != -1:
-                configuration[index] = "rest_listen_uri = http://" + web_ip + ":9000/api/"
-            if line.find("rest_transport_uri = ") != -1:
-                configuration[index] = "rest_transport_uri = http://" + web_ip + ":9000/api/"
-            if line.find("web_enable = ") != -1:
-                configuration[index] = "web_enable = " + web_enable
+            if line.find("root_password_sha2 =") != -1 and not c_root_password:
+                configuration[index] = "root_password_sha2 = " + pwd_hash.hexdigest() + "\n"
+                log("INFO", "root_password_sha2 changed to: " + pwd_hash.hexdigest())
+                c_root_password = True
+            if line.find("password_secret =") != -1 and not c_password_secret:
+                configuration[index] = "password_secret = " + pw_pepper + "\n"
+                log("INFO", "changed password_secret to: " + pw_pepper)
+                c_password_secret = True
+            if line.find("is_master = ") != -1 and not c_is_master:
+                configuration[index] = "is_master = " + is_master + "\n"
+                log("INFO", "changed is_master to: " + is_master)
+                c_is_master = True
+            if line.find("rest_listen_uri = ") != -1 and not c_rest_listen:
+                configuration[index] = "rest_listen_uri = http://" + web_ip + ":9000/api/" + "\n"
+                log("INFO", "changed rest_listen_uri to: http://" + web_ip + ":9000/api/")
+                c_rest_listen = True
+            if line.find("rest_transport_uri = ") != -1 and not c_rest_transport:
+                configuration[index] = "rest_transport_uri = http://" + web_ip + ":9000/api/" + "\n"
+                log("INFO", "changed rest_transport_uri to: http://" + web_ip + ":9000/api/")
+                c_rest_transport = True
+            if line.find("web_enable = ") != -1 and not web_enable_found:
+                configuration[index] = "web_enable = " + web_enable + "\n"
                 web_enable_found = True
-            if line.find("web_listen_uri = ") != -1:
-                configuration[index] = "web_listen_uri = http://" + web_ip + ":9000/"
-            if line.find("elasticsearch_max_time_per_index = "):
-                configuration[index] = "elasticsearch_max_time_per_index = 1d"
-            if line.find("elasticsearch_max_number_of_indices = "):
-                configuration[index] = "elasticsearch_max_number_of_indices = " + log_retention
+            if line.find("web_listen_uri = ") != -1 and not c_web_listen:
+                configuration[index] = "web_listen_uri = http://" + web_ip + ":9000/" + "\n"
+                log("INFO", "changed web_listen_uri to: http://" + web_ip + ":9000/")
+                c_web_listen = True
+            if line.find("elasticsearch_max_time_per_index = ") and not c_elastic_max_time:
+                configuration[index] = "elasticsearch_max_time_per_index = 1d" + "\n"
+                log("INFO", "changed elasticsearch_max_time_per_index to: 1d")
+                c_elastic_max_time = True
+            if line.find("elasticsearch_max_number_of_indices = ") and not c_elastic_max_index:
+                configuration[index] = "elasticsearch_max_number_of_indices = " + log_retention + "\n"
+                log("INFO", "changed elasticsearch_max_number_of_indices to: " + log_retention)
+                c_elastic_max_index = True
 
         if not web_enable_found:
-            configuration.append("web_enable = " + web_enable)
+            configuration.append("web_enable = " + web_enable + "\n")
+            log("INFO", "changed web_enable to: " + web_enable)
+
+        all_config = {
+            "c_root_password": c_root_password,
+            "c_password_secret": c_password_secret,
+            "c_is_master": c_is_master,
+            "c_rest_listen": c_rest_listen,
+            "c_rest_transport": c_rest_transport,
+            "c_web_listen": c_web_listen,
+            "c_elastic_max_index": c_elastic_max_index,
+            "c_elastic_max_time": c_elastic_max_time
+        }
+
+        for key in all_config:
+            if not all_config[key]:
+                log("WARNING", "(Default value remains) Value not changed for: " + key)
 
         conf_file = open(config_location, 'w')
         conf_file.truncate()
         conf_file.writelines("".join(configuration))
     except TypeError:
         log('ERROR', "Expected string input, cannot parse input for config file.")
-    except NameError:
-        log('ERROR', "Password for hashlib input not defined.")
+    except NameError as e:
+        print e
+        #log('ERROR', e)
     except IOError:
         log('ERROR', "changing admin password failed.")
 
 
 if __name__ == '__main__':
-    # change ip, dns, gateway and hostname settings
-    # deprecated for now.
-    # configure_host()
 
-    # install openjdk-x-jre-
-    openjdk_install()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "--config":
+            graylog_configuration()
+    else:
+        # change ip, dns, gateway and hostname settings
+        # deprecated for now.
+        # configure_host()
 
-    # install mongodb-server
-    mongodb_install()
+        # install openjdk-x-jre-
+        openjdk_install()
 
-    # install elasticsearch
-    elasticsearch_install()
+        # install mongodb-server
+        mongodb_install()
 
-    # make configuration changes to elasticsearch database
-    elasticsearch_configuration()
+        # install elasticsearch
+        elasticsearch_install()
 
-    # install graylog-server
-    graylog_install()
+        # make configuration changes to elasticsearch database
+        elasticsearch_configuration()
 
-    # make configuration changes
-    graylog_configuration()
+        # install graylog-server
+        graylog_install()
+
+        # make configuration changes
+        graylog_configuration()
 
 
 
