@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0f59be5-690b-4b7f-984c-a2123e8fa8a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graylog-server-installer.py" afterPath="$PROJECT_DIR$/graylog-server-installer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/elasticsearch_configuration.py" afterPath="$PROJECT_DIR$/elasticsearch_configuration.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -48,8 +47,8 @@
           <file leaf-file-name="elasticsearch_configuration.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/elasticsearch_configuration.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="22" column="49" lean-forward="true" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+                <state relative-caret-position="895">
+                  <caret line="118" column="18" lean-forward="false" selection-start-line="118" selection-start-column="18" selection-end-line="118" selection-end-column="18" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -88,8 +87,8 @@
           <file leaf-file-name="graylog-server-installer.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="274">
-                  <caret line="195" column="68" lean-forward="false" selection-start-line="195" selection-start-column="68" selection-end-line="195" selection-end-column="68" />
+                <state relative-caret-position="310">
+                  <caret line="197" column="0" lean-forward="true" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
                   <folding>
                     <element signature="e#692#706#0" expanded="true" />
                   </folding>
@@ -136,9 +135,9 @@
         <option value="$PROJECT_DIR$/elasticsearch_installer.py" />
         <option value="$PROJECT_DIR$/openjdk_installer.py" />
         <option value="$PROJECT_DIR$/graylog-database-installer.py" />
-        <option value="$PROJECT_DIR$/elasticsearch_configuration.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/graylog-server-installer.py" />
+        <option value="$PROJECT_DIR$/elasticsearch_configuration.py" />
       </list>
     </option>
   </component>
@@ -749,6 +748,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="197" column="0" lean-forward="true" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+          <folding>
+            <element signature="e#692#706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/graylog-database-installer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -761,20 +770,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/elasticsearch_configuration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="22" column="49" lean-forward="true" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+        <state relative-caret-position="895">
+          <caret line="118" column="18" lean-forward="false" selection-start-line="118" selection-start-column="18" selection-end-line="118" selection-end-column="18" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="195" column="68" lean-forward="false" selection-start-line="195" selection-start-column="68" selection-end-line="195" selection-end-column="68" />
-          <folding>
-            <element signature="e#692#706#0" expanded="true" />
           </folding>
         </state>
       </provider>

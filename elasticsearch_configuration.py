@@ -108,7 +108,7 @@ def elasticsearch_configuration():
             os.kill(int(pid[0]), signal.SIGTERM)
             try:
                 os.kill(int(pid[0]), 0)
-                log("ERROR", "Cannot kill elasticsearch proccess (pid " + pid[0] + ")")
+                log("WARNING", "Cannot kill elasticsearch proccess (pid " + pid[0] + ")")
             except OSError:
                 log("INFO", "Elasticsearch processed successfully stopped")
         pidfile.close()
