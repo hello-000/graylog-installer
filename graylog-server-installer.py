@@ -11,7 +11,7 @@
 
 # For further documentation on the installation of Graylog,
 # please refer to the official documentation:
-#   http://docs.graylog.org/en/2.1/pages/installation/os/ubuntu.html
+#   http://docs.graylog.org/en/2.2/pages/installation/os/ubuntu.html
 #
 # Please be aware, that this script is written for Ubuntu 16.04
 # should it be installed on an Ubuntu 14.04, there are certain
@@ -83,16 +83,16 @@ def mongodb_install():
 def graylog_install():
     print "OK"
     try:
-        d = subprocess.check_call(["wget", "https://packages.graylog2.org/repo/packages/graylog-2.1-repository_latest.deb"])
-        log("INFO", "retrieved graylog-2.1-repository_latest.deb from repository")
+        d = subprocess.check_call(["wget", "https://packages.graylog2.org/repo/packages/graylog-2.2-repository_latest.deb"])
+        log("INFO", "retrieved graylog-2.2-repository_latest.deb from repository")
     except subprocess.CalledProcessError:
-        log('ERROR', "Cannot retrieve graylog-2.1-repository_latest.deb from repository")
+        log('ERROR', "Cannot retrieve graylog-2.2-repository_latest.deb from repository")
 
     try:
-        d = subprocess.check_call(["dpkg", "-i", "graylog-2.1-repository_latest.deb"])
-        log("INFO", "depackaged graylog-2.1-repository_latest.deb")
+        d = subprocess.check_call(["dpkg", "-i", "graylog-2.2-repository_latest.deb"])
+        log("INFO", "depackaged graylog-2.2-repository_latest.deb")
     except subprocess.CalledProcessError:
-        log('ERROR', "Cannot depackage graylog-2.1-repository_latest.deb")
+        log('ERROR', "Cannot depackage graylog-2.2-repository_latest.deb")
 
     try:
         d = subprocess.check_call(["apt-get", "update", "-y"])
