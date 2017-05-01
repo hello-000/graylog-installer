@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0f59be5-690b-4b7f-984c-a2123e8fa8a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Modules/create-certificate.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/elasticsearch_configuration.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/elasticsearch_installer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logging.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openjdk_installer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server.conf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.conf" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graylog-database-installer.py" afterPath="$PROJECT_DIR$/graylog-database-installer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graylog-server-installer.py" afterPath="$PROJECT_DIR$/graylog-server-installer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modules/create-certificate.py" afterPath="$PROJECT_DIR$/Modules/create-certificate.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,6 +32,18 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="elasticsearch_configuration.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Modules/elasticsearch_configuration.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-486">
+                  <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+                  <folding>
+                    <element signature="e#0#21#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="graylog-database-installer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/graylog-database-installer.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -54,7 +56,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="elasticsearch_installer.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="elasticsearch_installer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Modules/elasticsearch_installer.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
@@ -83,7 +85,7 @@
           <file leaf-file-name="graylog-server-installer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2068">
+                <state relative-caret-position="-2054">
                   <caret line="111" column="49" lean-forward="true" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="49" />
                   <folding>
                     <element signature="e#692#706#0" expanded="true" />
@@ -95,8 +97,8 @@
           <file leaf-file-name="create-certificate.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Modules/create-certificate.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+                <state relative-caret-position="288">
+                  <caret line="16" column="75" lean-forward="false" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
                   <folding />
                 </state>
               </provider>
@@ -472,16 +474,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#692#706#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -897,12 +889,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
+    <entry file="file://$PROJECT_DIR$/Modules/elasticsearch_installer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2068">
-          <caret line="111" column="49" lean-forward="true" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="49" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#692#706#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -917,10 +909,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/elasticsearch_installer.py">
+    <entry file="file://$PROJECT_DIR$/graylog-server-installer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="-2054">
+          <caret line="111" column="49" lean-forward="true" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="49" />
+          <folding>
+            <element signature="e#692#706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/elasticsearch_configuration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-486">
+          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -929,8 +931,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules/create-certificate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        <state relative-caret-position="288">
+          <caret line="16" column="75" lean-forward="false" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
           <folding />
         </state>
       </provider>
