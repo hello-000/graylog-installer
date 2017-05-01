@@ -21,10 +21,9 @@
 
 import hashlib
 
-from logging import *
-from openjdk_installer import *
-from elasticsearch_installer import *
-from elasticsearch_configuration import *
+from Modules.openjdk_installer import *
+from Modules.elasticsearch_installer import *
+from Modules.elasticsearch_configuration import *
 
 
 def isInteger(value):
